@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>File upload</title>
+    </head>
+    <body>
+        <h1>File Upload</h1>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="imageUpload"><br>
+            <button type="submit">Submit</button>
+        </form>
+        <br>
+        <% if (msg) { %>
+            <%= msg %>
+        <% } %>
+        <% if (results) { %>
+        <table border="2">
+            <tr>
+                <th>Image</th><th>Size (Bytes)</th><th>DELETE</th>
+            </tr>
+                <% for (const image of results) { %>
+                    <tr>
+                        <td><img src="<%= image.name %>" width=100 height=100></td>
+                        <td><%= image.size %></td>
+                        <td>
+                            <form action="/delete" method="GET">
+                                <input type="hidden" name="filename" value="<%= image.name %>">
+                                <button type="submit">DELETE</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% } %>
+        </table>
+        <% } %>
+    </body>
+</html>
